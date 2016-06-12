@@ -3,29 +3,21 @@ require 'pg'
 require 'active_record'
 require 'JSON'
 
+begin
 
-ActiveRecord::Base.establish_connection(
-  adapter:  'postgresql',
-  host:     'localhost',
-  database: 'de2irj3vrcjj56',
-  username: 'mmcowkbdkruwoj'
-)
+	ActiveRecord::Base.establish_connection(
+	  "postgres://mmcowkbdkruwoj:8O7kwduHwfnWX2J_zh3DkPuJPA@ec2-54-235-123-19.compute-1.amazonaws.com:5432/de2irj3vrcjj56"
+	)
+rescue
+	puts "DATABASE CONNECTION ERROR"
+end
+
 class Objects < ActiveRecord::Base
-  
-  # GET_VALUE_FOR_GIVEN_KEY = keys_array
-
 	GET_VALUE_WITH_TIMESTAMP_REQUIRED_PARAMS=['api_key', 'timestamp', 'key']
 end
 
 class Timedobjects < ActiveRecord::Base
 end
-
-
-# get '/objects' do
-# 	p = Objects.all.to_json
-# end
-
-
 
 before '/object/:key' do
   if request.request_method == 'GET'
