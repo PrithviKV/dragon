@@ -20,6 +20,7 @@ class Timedobjects < ActiveRecord::Base
 end
 
 ### Method: GET /object/mykey ###
+### Method: GET /object/mykey?timestamp= ###
 before '/object/:key' do
 	if request.request_method == 'GET'
 		if not Objects.all.pluck(:key).include? params['key']
