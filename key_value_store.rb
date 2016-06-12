@@ -7,8 +7,8 @@ require 'JSON'
 ActiveRecord::Base.establish_connection(
   adapter:  'postgresql',
   host:     'localhost',
-  database: 'vault-dragon',
-  username: 'prithvikv'
+  database: 'de2irj3vrcjj56',
+  username: 'mmcowkbdkruwoj'
 )
 class Objects < ActiveRecord::Base
   
