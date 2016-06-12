@@ -8,8 +8,9 @@ begin
 	ActiveRecord::Base.establish_connection(
 	  "postgres://mmcowkbdkruwoj:8O7kwduHwfnWX2J_zh3DkPuJPA@ec2-54-235-123-19.compute-1.amazonaws.com:5432/de2irj3vrcjj56"
 	)
-rescue
+rescue ActiveRecord::ActiveRecordError => e
 	puts "DATABASE CONNECTION ERROR"
+	puts e.message
 end
 
 class Objects < ActiveRecord::Base
