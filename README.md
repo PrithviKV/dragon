@@ -32,7 +32,7 @@ $ bundle install
 $ ruby key_value_store.rb
 ```
 ### Demo
-   Demp app is deployed on HEROKU at http://secret-forest-70025.herokuapp.com
+   Demp app is deployed on HEROKU at http://secret-forest-70025.herokuapp.com/object/key1
    
 ### Request & Response Examples
 ###  GET /object/mykey
