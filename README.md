@@ -21,6 +21,8 @@ Version controlled key-value store with a HTTP API we can query that from.
         - fieldname and type: key_id (INT)
         - fieldname and type: key_value (VARCHAR)
         - filedname and type: timestamp (datetime)
+      * Tablename: Apikeys
+        - fieldname and type: access_token (VARCHAR)
       
 * To install this program
 ```
@@ -32,25 +34,25 @@ $ bundle install
 $ ruby key_value_store.rb
 ```
 ### Demo
-   Demp app is deployed on HEROKU at http://secret-forest-70025.herokuapp.com/api/v1/object/key1
+   Demp app is deployed on HEROKU at http://secret-forest-70025.herokuapp.com/api/v1/object/key1?access_token=303418d66745f9463a95c18dc25ba45d
    
 ### Request & Response Examples
 ###  GET /object/mykey
   ```
-  http://secret-forest-70025.herokuapp.com/api/v1/object/key1
+  http://secret-forest-70025.herokuapp.com/api/v1/object/key1?access_token=303418d66745f9463a95c18dc25ba45d
   Response: abc
   ```
 ###  POST /object/mykey
   ```
-  http://secret-forest-70025.herokuapp.com/api/v1/object
+  http://secret-forest-70025.herokuapp.com/api/v1/object?access_token=303418d66745f9463a95c18dc25ba45d
   Body: {"key1": "xyz"}
   ```
 ### GET /object/mykey?timestamp=
   ```
-  http://secret-forest-70025.herokuapp.com/api/v1/object/key1?timestamp=1465783110
+  http://secret-forest-70025.herokuapp.com/api/v1/object/key1?access_token=303418d66745f9463a95c18dc25ba45d&timestamp=1465783110
   Response: xyz
   
-  http://secret-forest-70025.herokuapp.com/api/v1/object/key1?timestamp=1465783032
+  http://secret-forest-70025.herokuapp.com/api/v1/object/key1?access_token=303418d66745f9463a95c18dc25ba45d&timestamp=1465783032
   Response: abc
   ```
   
