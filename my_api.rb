@@ -6,9 +6,13 @@ require 'json'
 require 'securerandom'
 
 class Objects < ActiveRecord::Base
+	validate :key, presence: true
+	validate :value, presence: true
 end
 
 class Timedobjects < ActiveRecord::Base
+	validate :key_id, presence: true
+	validate :key_value, presence: true
 end
 
 class Apikeys < ActiveRecord::Base
@@ -23,14 +27,14 @@ class Apikeys < ActiveRecord::Base
 	end
 end
 
-class MyApp < Sinatra::Base
-  	register Sinatra::Namespace
+class MyApi < Sinatra::Base
+  register Sinatra::Namespace
 
-    ### connecting to database ###
-
+   ### connecting to database ###
 	begin
 		ActiveRecord::Base.establish_connection(
 			"postgres://mmcowkbdkruwoj:8O7kwduHwfnWX2J_zh3DkPuJPA@ec2-54-235-123-19.compute-1.amazonaws.com:5432/de2irj3vrcjj56"
+		  
 		)
 	rescue ActiveRecord::ActiveRecordError => e
 		puts "DATABASE CONNECTION ERROR"
@@ -39,7 +43,7 @@ class MyApp < Sinatra::Base
 
 	namespace '/api/v1' do
         
-        #Authenticate user 
+    #Authenticate user 
 		before do
 			api_key = Apikeys.find_by_access_token(params[:access_token])
 			halt 401, {"status"=>"failed", "content"=>"Unauthorized! "}.to_json unless api_key
@@ -126,7 +130,7 @@ class MyApp < Sinatra::Base
 				t.save
 
 			rescue ActiveRecord::StatementInvalid => e
-		    	halt 500, {"status"=>"failed", "content"=>"Failed to create new record! #{e.message}"}.to_json
+		    halt 500, {"status"=>"failed", "content"=>"Failed to create new record! #{e.message}"}.to_json
 			end
 		end
 	end
@@ -136,4 +140,4 @@ class MyApp < Sinatra::Base
 		ActiveRecord::Base.connection.close
 	end
 end
-MyApp.run!
+MyApi.run!
