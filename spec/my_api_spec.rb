@@ -60,4 +60,10 @@ describe "My Api" do
     expect(last_response.body).to include("Invalid request parameters")
   end
 
+  it "should throw value can't be blank error when value is empty " do
+    body = { :new_key => ""}.to_json
+    post '/api/v1/object?access_token=access_token', body, {'Content-Type' => 'application/json'}
+    expect(last_response.body).to include("Value can't be blank")
+  end
+
 end

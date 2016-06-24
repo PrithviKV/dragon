@@ -6,13 +6,12 @@ require 'json'
 require 'securerandom'
 
 class Objects < ActiveRecord::Base
-    validate :key, presence: true
-    validate :value, presence: true
+    validates_presence_of :key
+    validates_presence_of :value
 end
-
 class Timedobjects < ActiveRecord::Base
-    validate :key_id, presence: true
-    validate :key_value, presence: true
+    validates_presence_of :key_id
+    validates_presence_of :key_value
 end
 
 class Apikeys < ActiveRecord::Base
@@ -33,7 +32,7 @@ class MyApi < Sinatra::Base
     ### connecting to database ###
     begin
         ActiveRecord::Base.establish_connection(
-            "postgres://mmcowkbdkruwoj:8O7kwduHwfnWX2J_zh3DkPuJPA@ec2-54-235-123-19.compute-1.amazonaws.com:5432/de2irj3vrcjj56"
+            "postgres://mmcowkbdkruwoj:8O7kwduHwfnWX2J_zh3DkPuJPA@ec2-54-235-123-19.compute-1.amazonaws.com:5432/de2irj3vrcjj56"   
         )
     rescue ActiveRecord::ActiveRecordError => e
         puts "DATABASE CONNECTION ERROR"
@@ -122,13 +121,13 @@ class MyApi < Sinatra::Base
                     p = Objects.new(key: "#{key}", value: "#{value}")
                     p.save!
                 else
-                    p.update(value: "#{value}")
+                    p.update!(value: "#{value}")
                 end
 
                 t = Timedobjects.new(key_id: p.id, key_value: "#{value}",timestamp: Time.now.change(:usec => 0))
                 t.save!
 
-            rescue ActiveRecord::StatementInvalid => e
+            rescue ActiveRecord::RecordInvalid => e
                 halt 500, {"status"=>"failed", "content"=>"Failed to create new record! #{e.message}"}.to_json
             end
         end
