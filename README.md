@@ -33,6 +33,10 @@ $ bundle install
 ```
 $ ruby key_value_store.rb
 ```
+### How to test
+```
+$ rspec
+```
 ### Demo
    Demp app is deployed on HEROKU at http://secret-forest-70025.herokuapp.com/api/v1/object/key1?access_token=303418d66745f9463a95c18dc25ba45d
    
