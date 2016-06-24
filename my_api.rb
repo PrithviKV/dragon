@@ -6,13 +6,11 @@ require 'json'
 require 'securerandom'
 
 class Objects < ActiveRecord::Base
-    validate :key, presence: true
-    validate :value, presence: true
+    attr_accessor :key, :value
 end
 
 class Timedobjects < ActiveRecord::Base
-    validate :key_id, presence: true
-    validate :key_value, presence: true
+    attr_accessor :key_id, :key_value
 end
 
 class Apikeys < ActiveRecord::Base
@@ -34,7 +32,6 @@ class MyApi < Sinatra::Base
     begin
         ActiveRecord::Base.establish_connection(
             "postgres://mmcowkbdkruwoj:8O7kwduHwfnWX2J_zh3DkPuJPA@ec2-54-235-123-19.compute-1.amazonaws.com:5432/de2irj3vrcjj56"
-
         )
     rescue ActiveRecord::ActiveRecordError => e
         puts "DATABASE CONNECTION ERROR"
