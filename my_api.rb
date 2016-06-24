@@ -6,11 +6,13 @@ require 'json'
 require 'securerandom'
 
 class Objects < ActiveRecord::Base
-    attr_accessor :key, :value
+    validate :key, presence: true
+    validate :value, presence: true
 end
 
 class Timedobjects < ActiveRecord::Base
-    attr_accessor :key_id, :key_value
+    validate :key_id, presence: true
+    validate :key_value, presence: true
 end
 
 class Apikeys < ActiveRecord::Base
